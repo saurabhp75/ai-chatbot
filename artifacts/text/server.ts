@@ -1,6 +1,6 @@
 import { smoothStream, streamText } from "ai";
+import { ollamaQwen3VL } from "@/lib/ai/models";
 import { updateDocumentPrompt } from "@/lib/ai/prompts";
-import { myProvider } from "@/lib/ai/providers";
 import { createDocumentHandler } from "@/lib/artifacts/server";
 
 export const textDocumentHandler = createDocumentHandler<"text">({
@@ -9,7 +9,8 @@ export const textDocumentHandler = createDocumentHandler<"text">({
     let draftContent = "";
 
     const { fullStream } = streamText({
-      model: myProvider.languageModel("artifact-model"),
+      // model: myProvider.languageModel("artifact-model"),
+      model: ollamaQwen3VL,
       system:
         "Write about the given topic. Markdown is supported. Use headings wherever appropriate.",
       experimental_transform: smoothStream({ chunking: "word" }),
@@ -38,7 +39,8 @@ export const textDocumentHandler = createDocumentHandler<"text">({
     let draftContent = "";
 
     const { fullStream } = streamText({
-      model: myProvider.languageModel("artifact-model"),
+      // model: myProvider.languageModel("artifact-model"),
+      model: ollamaQwen3VL,
       system: updateDocumentPrompt(document.content, "text"),
       experimental_transform: smoothStream({ chunking: "word" }),
       prompt: description,

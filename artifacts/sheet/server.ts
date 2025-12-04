@@ -1,7 +1,7 @@
 import { streamObject } from "ai";
 import { z } from "zod";
+import { ollamaQwen3VL } from "@/lib/ai/models";
 import { sheetPrompt, updateDocumentPrompt } from "@/lib/ai/prompts";
-import { myProvider } from "@/lib/ai/providers";
 import { createDocumentHandler } from "@/lib/artifacts/server";
 
 export const sheetDocumentHandler = createDocumentHandler<"sheet">({
@@ -10,7 +10,8 @@ export const sheetDocumentHandler = createDocumentHandler<"sheet">({
     let draftContent = "";
 
     const { fullStream } = streamObject({
-      model: myProvider.languageModel("artifact-model"),
+      // model: myProvider.languageModel("artifact-model"),
+      model: ollamaQwen3VL,
       system: sheetPrompt,
       prompt: title,
       schema: z.object({
@@ -49,7 +50,8 @@ export const sheetDocumentHandler = createDocumentHandler<"sheet">({
     let draftContent = "";
 
     const { fullStream } = streamObject({
-      model: myProvider.languageModel("artifact-model"),
+      // model: myProvider.languageModel("artifact-model"),
+      model: ollamaQwen3VL,
       system: updateDocumentPrompt(document.content, "sheet"),
       prompt: description,
       schema: z.object({
