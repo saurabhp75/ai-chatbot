@@ -1,5 +1,7 @@
 export const DEFAULT_CHAT_MODEL: string = "chat-model";
 
+import { ollama } from "ollama-ai-provider-v2";
+
 export type ChatModel = {
   id: string;
   name: string;
@@ -19,3 +21,7 @@ export const chatModels: ChatModel[] = [
       "Uses advanced chain-of-thought reasoning for complex problems",
   },
 ];
+
+export const ollamaDeepSeek = ollama("deepseek-r1:8b");
+export const ollamaLlama = ollama("llama3.1:latest");
+export const ollamaQwen3 = ollama("qwen3:4b");

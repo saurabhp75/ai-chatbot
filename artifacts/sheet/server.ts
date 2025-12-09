@@ -3,6 +3,7 @@ import { z } from "zod";
 import { sheetPrompt, updateDocumentPrompt } from "@/lib/ai/prompts";
 import { myProvider } from "@/lib/ai/providers";
 import { createDocumentHandler } from "@/lib/artifacts/server";
+import { ollamaLlama } from "@/lib/ai/models";
 
 export const sheetDocumentHandler = createDocumentHandler<"sheet">({
   kind: "sheet",
@@ -10,7 +11,8 @@ export const sheetDocumentHandler = createDocumentHandler<"sheet">({
     let draftContent = "";
 
     const { fullStream } = streamObject({
-      model: myProvider.languageModel("artifact-model"),
+      // model: myProvider.languageModel("artifact-model"),
+      model: ollamaLlama,
       system: sheetPrompt,
       prompt: title,
       schema: z.object({
@@ -49,7 +51,8 @@ export const sheetDocumentHandler = createDocumentHandler<"sheet">({
     let draftContent = "";
 
     const { fullStream } = streamObject({
-      model: myProvider.languageModel("artifact-model"),
+      // model: myProvider.languageModel("artifact-model"),
+      model: ollamaLlama,
       system: updateDocumentPrompt(document.content, "sheet"),
       prompt: description,
       schema: z.object({
